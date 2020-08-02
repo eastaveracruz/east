@@ -1,0 +1,128 @@
+# Создаём сеть
+docker network create frontend
+
+# Запустить контейне с nginx.
+docker container run -d --net frontend --net-alias search elasticsearch:2
+docker container run -d --net frontend --net-alias search elasticsearch:2
+
+# nslookup
+docker container run --rm --net frontend alpine nslookup search
+
+# curl server info
+# docker container run --rm --net frontend centos curl -s search:9200
+
+
+
+# удалить предыдущий контейнер
+docker container rm -f proxy
+docker network rm frontend
+
+# Создаём сеть
+docker network create frontend
+
+# Получить список всех существующих сетей.
+docker network ls
+
+
+
+# удалить предыдущий контейнер
+docker container rm -f proxy
+docker network rm frontend
+
+# Создаём сеть
+docker network create frontend
+
+# Запустить контейне с nginx.
+docker container run -d -p 80:80 --name proxy nginx
+
+# Присоединить контейнер к сети
+docker network connect frontend proxy
+
+
+
+
+# удалить предыдущий контейнер
+docker container rm -f proxy
+docker network rm frontend
+
+# Создаём сеть
+docker network create frontend
+
+# Запустить контейне с nginx.
+docker container run -d -p 80:80 --name proxy nginx
+
+docker container inspect proxy --format "{{ .NetworkSettings.Networks }}" # one network
+
+# Присоединить контейнер к сети
+docker network connect frontend proxy
+
+docker container inspect proxy --format "{{ .NetworkSettings.Networks }}" # two networks
+
+# Отсоединить контейнер от сети
+docker network disconnect frontend proxy
+
+docker container inspect proxy --format "{{ .NetworkSettings.Networks }}" # one network
+
+
+
+# удалить предыдущий контейнер
+docker container rm -f proxy
+docker network rm frontend
+
+# Создаём сеть
+docker network create frontend
+
+# Запустить контейне с nginx.
+docker container run -d -p 80:80 --name proxy nginx
+
+docker container inspect proxy --format "{{ .NetworkSettings.Networks }}" # one network
+
+# Присоединить контейнер к сети
+docker network connect frontend proxy
+
+docker container inspect proxy --format "{{ .NetworkSettings.Networks }}" # two networks
+
+# Отсоединить контейнер от сети
+docker network disconnect frontend proxy
+
+docker container inspect proxy --format "{{ .NetworkSettings.Networks }}" # one network
+
+
+
+# удалить предыдущий контейнер
+docker container rm -f proxy
+docker network rm frontend
+
+# Создаём сеть
+docker network create frontend
+
+# Запустить контейне с nginx.
+# docker container run -d -p 80:80 --name proxy nginx
+
+docker container run -d -p 80:80 --name proxy --net frontend nginx
+
+# Удалить все не используемые сети
+docker network prune
+
+
+
+# удалить предыдущий контейнер
+docker container rm -f proxy
+docker network rm frontend
+
+# Создаём сеть
+docker network create frontend
+
+# Запустить контейне с nginx.
+docker container run -d --net frontend --net-alias search elasticsearch:2
+docker container run -d --net frontend --net-alias search elasticsearch:2
+
+# nslookup
+docker container run --rm --net frontend alpine nslookup search
+
+# curl server info
+# docker container run --rm --net frontend centos curl -s search:9200
+
+
+
+
